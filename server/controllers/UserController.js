@@ -1,4 +1,4 @@
-const { comparePassword } = require("../helpers/bcrypt");
+const { comparePassword, hashPassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt.js");
 const { User } = require(`../models/index.js`);
 
@@ -9,7 +9,7 @@ class UserController {
 
             const newUser = await User.create({
                 email,
-                password
+                password: hashPassword(password)
             });
 
             res.status(201).json({
